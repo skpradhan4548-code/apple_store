@@ -21,10 +21,10 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
+  const closeOverlays = () => {
     setMobileOpen(false);
     setSearchOpen(false);
-  }, [location]);
+  };
 
   useEffect(() => {
     if (searchOpen && searchRef.current) searchRef.current.focus();
@@ -57,7 +57,7 @@ const Navbar = () => {
         <nav className="navbar__inner" role="navigation" aria-label="Global">
 
           {/* Apple Logo */}
-          <Link to="/" className="navbar__logo" aria-label="Apple">
+          <Link to="/" className="navbar__logo" aria-label="Apple" onClick={closeOverlays}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 814 1000" width="18" height="22" fill="currentColor" aria-hidden="true">
               <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 672.4 0 541.2 0 426.6c0-175.2 114.4-267.8 226.7-267.8 60 0 109.7 40.4 147.2 40.4 35.7 0 92-43 161.6-43 25.8 0 108.2 2.6 168.6 71.9zm-209.7-144.5c31.4-37 54.4-88.2 54.4-139.4 0-7.1-.6-14.3-1.9-20.1-51.5 2-112.5 34.5-149.5 76.7-28.5 32-56.4 83.1-56.4 135.1 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 46.4 0 102.5-31.1 138-71.7z"/>
             </svg>
@@ -70,6 +70,7 @@ const Navbar = () => {
                 <Link
                   to={link.path}
                   className={`navbar__link ${location.pathname === link.path && link.path !== '/' ? 'navbar__link--active' : ''}`}
+                  onClick={closeOverlays}
                 >
                   {link.label}
                 </Link>
@@ -99,7 +100,7 @@ const Navbar = () => {
             </button>
 
             {/* Bag with live badge */}
-            <Link to="/cart" id="nav-bag-btn" className="navbar__icon-btn navbar__bag-btn" aria-label={`Shopping Bag - ${totalItems} items`}>
+            <Link to="/cart" id="nav-bag-btn" className="navbar__icon-btn navbar__bag-btn" aria-label={`Shopping Bag - ${totalItems} items`} onClick={closeOverlays}>
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
                 <path d="M15.5 5h-2.757A3.751 3.751 0 009 1.5 3.751 3.751 0 005.257 5H2.5L1 17.5h16L15.5 5zM9 3a2.25 2.25 0 012.23 2H6.77A2.25 2.25 0 019 3zm0 9a2 2 0 110-4 2 2 0 010 4z"/>
               </svg>
@@ -110,11 +111,11 @@ const Navbar = () => {
 
             {/* Auth */}
             {user ? (
-              <button id="nav-user-btn" className="navbar__user-btn" onClick={() => { logout(); navigate('/'); }}>
+              <button id="nav-user-btn" className="navbar__user-btn" onClick={() => { closeOverlays(); logout(); navigate('/'); }}>
                 {user.name.split(' ')[0]} · Sign Out
               </button>
             ) : (
-              <Link to="/login" id="nav-signin-btn" className="navbar__login-btn">Sign In</Link>
+              <Link to="/login" id="nav-signin-btn" className="navbar__login-btn" onClick={closeOverlays}>Sign In</Link>
             )}
 
             {/* Hamburger (mobile) */}
@@ -156,11 +157,11 @@ const Navbar = () => {
             <ul>
               {navLinks.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.path} className="navbar__mobile-link" role="menuitem">{link.label}</Link>
+                  <Link to={link.path} className="navbar__mobile-link" role="menuitem" onClick={closeOverlays}>{link.label}</Link>
                 </li>
               ))}
               <li className="navbar__mobile-divider" />
-              <li><Link to="/login" className="navbar__mobile-link navbar__mobile-link--signin" role="menuitem">Sign In</Link></li>
+              <li><Link to="/login" className="navbar__mobile-link navbar__mobile-link--signin" role="menuitem" onClick={closeOverlays}>Sign In</Link></li>
             </ul>
           </div>
         )}

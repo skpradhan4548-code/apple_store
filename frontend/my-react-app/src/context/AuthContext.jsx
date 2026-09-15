@@ -2,12 +2,24 @@ import { createContext, useContext, useState, useEffect, useCallback } from 'rea
 
 const AuthContext = createContext(null);
 
-const API = 'http://localhost:5000/api/auth';
+const apiBaseUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, '');
+
+if (!apiBaseUrl) {
+  throw new Error('Missing VITE_API_URL. Copy .env.example to .env and configure the API base URL.');
+}
+
+const API = `${apiBaseUrl}/auth`;
 
 export const AuthProvider = ({ children }) => {
   const [user,    setUser]    = useState(null);
   const [token,   setToken]   = useState(() => localStorage.getItem('apple_token'));
   const [loading, setLoading] = useState(true);
+
+  const logout = useCallback(() => {
+    localStorage.removeItem('apple_token');
+    setToken(null);
+    setUser(null);
+  }, []);
 
   /* Re-hydrate session on mount */
   useEffect(() => {
@@ -27,8 +39,7 @@ export const AuthProvider = ({ children }) => {
       }
     };
     restore();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [token, logout]);
 
   const login = useCallback(async (email, password) => {
     const res  = await fetch(`${API}/login`, {
@@ -56,12 +67,6 @@ export const AuthProvider = ({ children }) => {
     setToken(data.token);
     setUser(data.user);
     return data.user;
-  }, []);
-
-  const logout = useCallback(() => {
-    localStorage.removeItem('apple_token');
-    setToken(null);
-    setUser(null);
   }, []);
 
   return (

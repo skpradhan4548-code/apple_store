@@ -4,16 +4,31 @@ const cors     = require('cors');
 require('dotenv').config();
 
 const app = express();
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:5175',
+];
 
 /* ── Middleware ── */
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000'],
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps, curl, postman)
+    if (!origin) return callback(null, true);
+    // Allow any localhost port in development or matched origin
+    if (/^http:\/\/localhost:\d+$/.test(origin) || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Blocked by CORS'));
+  },
   credentials: true,
 }));
 app.use(express.json());
 
 /* ── Routes ── */
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/products', require('./routes/products'));
 
 /* ── Health check ── */
 app.get('/', (req, res) => res.json({ status: 'Apple Store API running ✅' }));

@@ -17,6 +17,20 @@
 .pp-404__back { color: #0066cc; text-decoration: none; font-size: 17px; }
 .pp-404__back:hover { text-decoration: underline; }
 
+/* ── Loading Spinner ── */
+.pp-loading-spinner {
+  width: 42px;
+  height: 42px;
+  border: 3px solid rgba(0, 0, 0, 0.08);
+  border-top-color: #0071e3;
+  border-radius: 50%;
+  animation: ppSpin 0.8s linear infinite;
+}
+
+@keyframes ppSpin {
+  to { transform: rotate(360deg); }
+}
+
 /* ── Hero ── */
 .pp-hero { padding: 60px 0 0; }
 .pp-hero__inner {

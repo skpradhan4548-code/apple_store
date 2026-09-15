@@ -1,27 +1,106 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getProductById, getProductsBySlug, formatPrice } from '../data/products';
+import { formatPrice } from '../data/products';
 import { useCart } from '../context/CartContext';
 import Navbar from './navabar';
 import Footer from './footer';
 import './ProductPage.css';
 
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
 const ProductPage = () => {
   const { id } = useParams();
-  const product = getProductById(id);
   const { addToCart } = useCart();
 
+  const [product,         setProduct]         = useState(null);
+  const [related,         setRelated]         = useState([]);
+  const [loading,         setLoading]         = useState(true);
+  const [error,           setError]           = useState(null);
   const [selectedColor,   setSelectedColor]   = useState(0);
   const [selectedStorage, setSelectedStorage] = useState(0);
   const [added,           setAdded]           = useState(false);
 
-  /* Show 404 if product not found */
-  if (!product) {
+  useEffect(() => {
+    let isMounted = true;
+    setLoading(true);
+    setError(null);
+    setSelectedColor(0);
+    setSelectedStorage(0);
+
+    const loadProduct = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/products/${id}`);
+        if (!res.ok) {
+          if (res.status === 404) {
+            throw new Error('Product not found');
+          }
+          throw new Error('Failed to load product');
+        }
+        const data = await res.json();
+        if (!data.product) {
+          throw new Error('Product not found');
+        }
+
+        if (isMounted) {
+          setProduct(data.product);
+
+          // Fetch related category products from backend
+          if (data.product.category) {
+            try {
+              const relRes = await fetch(`${API_BASE}/products/category/${data.product.category}`);
+              if (relRes.ok) {
+                const relData = await relRes.json();
+                if (isMounted && relData.products) {
+                  setRelated(relData.products.filter(p => p.id !== id).slice(0, 4));
+                }
+              }
+            } catch {
+              // Related failure is non-blocking
+            }
+          }
+        }
+      } catch (err) {
+        if (isMounted) {
+          setError(err.message);
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadProduct();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [id]);
+
+  /* Show Loading state */
+  if (loading) {
+    return (
+      <div className="pp-page">
+        <Navbar />
+        <div className="pp-404__inner" style={{ minHeight: '60vh' }}>
+          <div className="pp-loading-spinner" />
+          <p style={{ color: '#86868b', fontSize: '17px', marginTop: '16px' }}>Loading product details...</p>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  /* Show 404 if product not found or server error */
+  if (error || !product) {
     return (
       <div className="pp-404">
         <Navbar />
         <div className="pp-404__inner">
           <h1>Product not found</h1>
+          <p style={{ color: '#86868b', fontSize: '15px' }}>
+            {error || 'The requested product is not currently available.'}
+          </p>
           <Link to="/" className="pp-404__back">← Back to Store</Link>
         </div>
         <Footer />
@@ -29,14 +108,22 @@ const ProductPage = () => {
     );
   }
 
-  const { name, tagline, longDesc, image, bg, textColor, accentColor, colors, storage, specs, slug } = product;
+  const {
+    name,
+    tagline,
+    longDesc,
+    image,
+    bg,
+    textColor,
+    accentColor,
+    colors = [],
+    storage = [],
+    specs = [],
+  } = product;
 
   const activeVariant = storage.length > 0 ? storage[selectedStorage] : null;
-  const activeColor   = colors[selectedColor];
+  const activeColor   = colors.length > 0 ? colors[selectedColor] : null;
   const currentPrice  = activeVariant?.price ?? activeColor?.price ?? product.basePrice;
-
-  /* Also-consider — other products in same slug category */
-  const related = getProductsBySlug(slug).filter(p => p.id !== id).slice(0, 4);
 
   const handleAddToCart = () => {
     addToCart(product, activeVariant || activeColor, 1);
