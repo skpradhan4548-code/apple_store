@@ -1,0 +1,193 @@
+/* ═══════════════════════════════════════════════════════════════
+   CORE.CSS — Apple Design System Tokens (Single Source of Truth)
+   ═══════════════════════════════════════════════════════════════
+   
+   RULE: Every color, spacing, font, radius, and transition 
+   used across ALL components MUST be declared here.
+   
+   Component CSS files should ONLY use var(--token-name).
+   Never hardcode #hex values in component files.
+   
+   Organized by:
+     1. Colors (Brand → Semantic → Surface → Overlay)
+     2. Typography (Font Stack → Sizes → Weights → Line-heights)
+     3. Spacing (Layout → Component → Section)
+     4. Radii (Cards → Pills → Circular)
+     5. Shadows & Effects
+     6. Transitions & Easing
+     7. Z-Index Scale
+     8. Breakpoints (reference — CSS can't use vars in @media)
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+
+  /* ── 1. Colors ─────────────────────────────────── */
+
+  /* Brand */
+  --apple-blue:           #0071e3;
+  --apple-blue-hover:     #0077ed;
+  --apple-blue-dark:      #2997ff;
+  --apple-blue-10:        rgba(0, 113, 227, 0.1);
+  --apple-blue-40:        rgba(0, 113, 227, 0.4);
+  --apple-orange:         #f56300;
+  --apple-tag:            #bf4800;
+
+  /* Text */
+  --color-text-primary:   #1d1d1f;
+  --color-text-secondary: #86868b;
+  --color-text-tertiary:  #6e6e73;
+  --color-text-quaternary:#515154;
+  --color-text-link:      #0066cc;
+
+  /* Surface */
+  --color-fill:           #ffffff;
+  --color-fill-secondary: #f5f5f7;
+  --color-fill-tertiary:  #e8e8ed;
+  --color-bg-dark:        #000000;
+
+  /* Border */
+  --color-border:         #d2d2d7;
+  --color-border-light:   rgba(0, 0, 0, 0.08);
+  --color-border-lighter: rgba(0, 0, 0, 0.06);
+
+  /* Overlay */
+  --color-overlay-dark:   rgba(0, 0, 0, 0.45);
+  --color-overlay-light:  rgba(255, 255, 255, 0.82);
+  --color-glass:          rgba(255, 255, 255, 0.9);
+  --color-glass-strong:   rgba(255, 255, 255, 0.92);
+
+  /* Dark theme surfaces */
+  --color-dark-text:      #f5f5f7;
+  --color-dark-subtext:   #d2d2d7;
+  --color-dark-muted:     #86868b;
+
+
+  /* ── 2. Typography ─────────────────────────────── */
+
+  /* Font Stack (Apple-faithful) */
+  --font-stack: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+                'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Display (Hero headlines) */
+  --font-display-xl:      80px;   /* Category page title */
+  --font-display-lg:      56px;   /* Hero headline */
+  --font-display-md:      44px;   /* Section titles */
+  --font-display-sm:      40px;   /* Subsection titles */
+
+  /* Heading */
+  --font-heading-lg:      28px;   /* Product name in lineup card */
+  --font-heading-md:      24px;   /* Hero subhead */
+  --font-heading-sm:      22px;   /* Card titles */
+  --font-heading-xs:      20px;   /* Why-card titles */
+
+  /* Body */
+  --font-body-lg:         17px;   /* CTA buttons */
+  --font-body-md:         15px;   /* Compare link */
+  --font-body-sm:         14px;   /* Tagline, price, promo */
+  --font-body-xs:         13px;   /* Small body text */
+  --font-body-xxs:        12px;   /* Labels, badges, nav */
+
+  /* Micro */
+  --font-micro:           11px;   /* Spec labels, footnotes */
+  --font-micro-sm:        10px;   /* Chapter nav badges */
+
+  /* Weights */
+  --weight-regular:       400;
+  --weight-medium:        500;
+  --weight-semibold:      600;
+  --weight-bold:          700;
+
+  /* Line Heights */
+  --lh-tight:             1.05;
+  --lh-snug:              1.1;
+  --lh-normal:            1.14;
+  --lh-relaxed:           1.25;
+  --lh-loose:             1.43;
+  --lh-body:              1.5;
+
+
+  /* ── 3. Spacing ────────────────────────────────── */
+
+  /* Layout */
+  --max-width:            1200px;
+  --max-width-wide:       1320px;
+  --page-padding:         24px;
+
+  /* Section */
+  --section-gap-lg:       80px;
+  --section-gap-md:       72px;
+  --section-gap-sm:       48px;
+
+  /* Component */
+  --space-xxl:            48px;
+  --space-xl:             40px;
+  --space-lg:             32px;
+  --space-md:             24px;
+  --space-sm:             16px;
+  --space-xs:             12px;
+  --space-xxs:            8px;
+  --space-micro:          4px;
+  --space-nano:           2px;
+
+
+  /* ── 4. Radii ──────────────────────────────────── */
+
+  --radius-card:          20px;
+  --radius-card-lg:       24px;
+  --radius-pill:          980px;  /* Apple's infinite pill */
+  --radius-circle:        50%;
+  --radius-sm:            4px;
+
+
+  /* ── 5. Shadows & Effects ──────────────────────── */
+
+  --shadow-sm:            0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md:            0 4px 16px rgba(0, 0, 0, 0.04);
+  --shadow-lg:            0 8px 30px rgba(0, 0, 0, 0.08);
+  --shadow-xl:            0 12px 40px rgba(0, 0, 0, 0.1);
+  --shadow-hero:          0 20px 40px rgba(0, 0, 0, 0.2);
+  --shadow-paddle:        0 2px 12px rgba(0, 0, 0, 0.12);
+
+  --blur-glass:           12px;
+  --blur-overlay:         16px;
+
+  /* Swatch ring */
+  --swatch-size:          12px;
+  --swatch-ring:          0 0 0 2px #fff, 0 0 0 4px var(--apple-blue);
+  --swatch-inset:         inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+
+
+  /* ── 6. Transitions ────────────────────────────── */
+
+  --ease-apple:           cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-standard:        cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:             ease;
+
+  --duration-fast:        0.2s;
+  --duration-normal:      0.3s;
+  --duration-slow:        0.5s;
+
+  --transition-fast:      0.2s ease;
+  --transition-normal:    0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-slow:      0.5s cubic-bezier(0.25, 1, 0.5, 1);
+
+
+  /* ── 7. Z-Index Scale ──────────────────────────── */
+
+  --z-base:               1;
+  --z-dropdown:           100;
+  --z-sticky:             200;
+  --z-overlay:            9990;
+  --z-navbar:             9999;
+  --z-modal:              10000;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Breakpoint Reference (for documentation — use raw px in @media)
+   ───────────────────────────────────────────────────────────────
+   --bp-mobile:   480px
+   --bp-tablet:   768px
+   --bp-desktop:  1024px
+   --bp-wide:     1440px
+   ═══════════════════════════════════════════════════════════════ */

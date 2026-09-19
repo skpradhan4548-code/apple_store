@@ -2,107 +2,90 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './LineupCard.css';
 
+/**
+ * LineupCard — Apple-style product tile for "Explore the line-up" section.
+ *
+ * Props:
+ *   product {Object} — { id, name, tagline, tag, image, bg, basePrice, colors[] }
+ *   colors  — [{ label, hex, image }]
+ */
 const LineupCard = ({ product }) => {
-  const [selectedColorIdx, setSelectedColorIdx] = useState(0);
+  const [colorIdx, setColorIdx] = useState(0);
 
   if (!product) return null;
 
-  const colors = product.colors || [];
-  const activeColor = colors[selectedColorIdx];
+  const { name, tagline, tag, basePrice, colors = [] } = product;
+  const activeColor = colors[colorIdx];
   const displayImage = activeColor?.image || product.image;
 
-  // EMI calculation (6 months approx)
-  const monthlyEmi = Math.round(product.basePrice / 6);
-  const formattedPrice = `₹${product.basePrice.toLocaleString('en-IN')}.00*`;
-  const formattedEmi = `or ₹${monthlyEmi.toLocaleString('en-IN')}/mo. for 6 mo.‡`;
+  // EMI: 6-month no-cost EMI (industry-standard Apple India pattern)
+  const emi = Math.round(basePrice / 6);
 
   return (
     <article className="lineup-card">
-      {/* ── Product Media Container ── */}
+      {/* ── Image Area ── */}
       <div
-        className="lineup-card__media-box"
+        className="lineup-card__media"
         style={{ backgroundColor: product.bg || '#f5f5f7' }}
       >
+        {tag && <span className="lineup-card__badge">{tag}</span>}
+
         <img
           src={displayImage}
-          alt={product.name}
+          alt={name}
           className="lineup-card__img"
           loading="lazy"
           onError={(e) => {
             e.target.onerror = null;
-            e.target.src = 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp14-spaceblack-select-202310?wid=452&hei=420&fmt=jpeg&qlt=90';
+            e.target.style.opacity = '0.35';
           }}
         />
       </div>
 
       {/* ── Color Swatches ── */}
-      <div className="lineup-card__swatches" role="radiogroup" aria-label="Available colors">
-        {colors.length > 0 ? (
-          colors.map((c, i) => (
-            <button
-              key={c.label || i}
-              type="button"
-              className={`lineup-card__swatch ${i === selectedColorIdx ? 'lineup-card__swatch--active' : ''}`}
-              style={{ backgroundColor: c.hex }}
-              onClick={() => setSelectedColorIdx(i)}
-              title={c.label}
-              aria-label={c.label}
-              aria-checked={i === selectedColorIdx}
-              role="radio"
-            />
-          ))
-        ) : (
-          <div className="lineup-card__swatch-placeholder" />
-        )}
+      <div className="lineup-card__swatches" role="radiogroup" aria-label="Colours">
+        {colors.length > 0
+          ? colors.map((c, i) => (
+              <button
+                key={c.label || i}
+                type="button"
+                role="radio"
+                aria-checked={i === colorIdx}
+                aria-label={c.label}
+                title={c.label}
+                className={`lineup-card__swatch${i === colorIdx ? ' lineup-card__swatch--active' : ''}`}
+                style={{ backgroundColor: c.hex }}
+                onClick={() => setColorIdx(i)}
+              />
+            ))
+          : null}
       </div>
 
-      {/* ── Header Info ── */}
-      <div className="lineup-card__info">
-        {product.tag && (
-          <span className="lineup-card__tag">{product.tag}</span>
-        )}
-        <h3 className="lineup-card__name">{product.name}</h3>
-        {product.tagline && (
-          <p className="lineup-card__tagline">{product.tagline}</p>
-        )}
+      {/* ── Product Name ── */}
+      <h3 className="lineup-card__name">{name}</h3>
 
-        {/* ── Pricing ── */}
-        <div className="lineup-card__pricing">
-          <span className="lineup-card__price">From {formattedPrice}</span>
-          <span className="lineup-card__emi">{formattedEmi}</span>
-        </div>
+      {/* ── Tagline ── */}
+      {tagline && <p className="lineup-card__tagline">{tagline}</p>}
 
-        {/* ── Action CTAs ── */}
-        <div className="lineup-card__ctas">
-          <Link
-            to={`/product/${product.id}`}
-            className="lineup-card__btn lineup-card__btn--buy"
-          >
-            Buy
-          </Link>
-          <Link
-            to={`/product/${product.id}`}
-            className="lineup-card__link"
-          >
-            Learn more &gt;
-          </Link>
-        </div>
+      {/* ── Pricing ── */}
+      <div className="lineup-card__pricing">
+        <span className="lineup-card__price">
+          From ₹{basePrice.toLocaleString('en-IN')}.00‡‡
+        </span>
+        <span className="lineup-card__emi">
+          or ₹{emi.toLocaleString('en-IN')}.00/mo. for 6 mo.‡‡‡
+        </span>
       </div>
 
-      {/* ── Specs Comparison Section ── */}
-      {product.specs && product.specs.length > 0 && (
-        <div className="lineup-card__specs">
-          <hr className="lineup-card__divider" />
-          <ul className="lineup-card__specs-list">
-            {product.specs.slice(0, 3).map((spec, idx) => (
-              <li key={idx} className="lineup-card__spec-item">
-                <span className="lineup-card__spec-value">{spec.value}</span>
-                <span className="lineup-card__spec-label">{spec.label}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {/* ── CTAs ── */}
+      <div className="lineup-card__ctas">
+        <Link to={`/product/${product.id}`} className="lineup-card__cta-learn">
+          Learn more
+        </Link>
+        <Link to={`/product/${product.id}`} className="lineup-card__cta-buy">
+          Buy &gt;
+        </Link>
+      </div>
     </article>
   );
 };

@@ -5,6 +5,7 @@ import Footer from '../footer';
 import ChapterNav from './ChapterNav';
 import CategoryHero from './CategoryHero';
 import LineupCard from './LineupCard';
+import ProductCarousel from './ProductCarousel';
 import './CategoryPage.css';
 
 const CategoryPage = ({ categorySlug = 'mac' }) => {
@@ -129,6 +130,9 @@ const CategoryPage = ({ categorySlug = 'mac' }) => {
 
       {/* ── 4. Cinematic Hero Showcase ── */}
       {categoryData.hero && <CategoryHero hero={categoryData.hero} />}
+
+      {/* ── 4½. Dynamic Product Carousel ── */}
+      <ProductCarousel products={products} categorySlug={categorySlug} />
 
       {/* ── 5. Explore the Line-up Section ── */}
       <section className="category-page__lineup" aria-label={`Explore the ${categoryData.title} line-up`}>
