@@ -5,6 +5,8 @@ import Home        from './componets/Home';
 import Login       from './componets/login';
 import ProductPage from './componets/ProductPage';
 import CartPage    from './componets/CartPage';
+import CategoryPage from './componets/category/CategoryPage';
+import StorePage    from './componets/store/StorePage';
 import './App.css';
 
 function App() {
@@ -13,8 +15,9 @@ function App() {
       <AuthProvider>
         <CartProvider>
           <Routes>
-            {/* Main store */}
+            {/* Main store & Store hub */}
             <Route path="/"          element={<Home />} />
+            <Route path="/store"     element={<StorePage />} />
 
             {/* Product detail */}
             <Route path="/product/:id" element={<ProductPage />} />
@@ -25,14 +28,14 @@ function App() {
             {/* Auth */}
             <Route path="/login"     element={<Login />} />
 
-            {/* Category browse routes — all show Home for now */}
-            <Route path="/mac"         element={<Home />} />
-            <Route path="/ipad"        element={<Home />} />
-            <Route path="/iphone"      element={<Home />} />
-            <Route path="/watch"       element={<Home />} />
-            <Route path="/airpods"     element={<Home />} />
-            <Route path="/tv-home"     element={<Home />} />
-            <Route path="/entertainment" element={<Home />} />
+            {/* Authentic Category Pages */}
+            <Route path="/mac"           element={<CategoryPage categorySlug="mac" />} />
+            <Route path="/ipad"          element={<CategoryPage categorySlug="ipad" />} />
+            <Route path="/iphone"        element={<CategoryPage categorySlug="iphone" />} />
+            <Route path="/watch"         element={<CategoryPage categorySlug="watch" />} />
+            <Route path="/airpods"       element={<CategoryPage categorySlug="airpods" />} />
+            <Route path="/tv-home"       element={<CategoryPage categorySlug="tv-home" />} />
+            <Route path="/entertainment" element={<CategoryPage categorySlug="entertainment" />} />
 
             {/* 404 fallback */}
             <Route path="*" element={<Home />} />

@@ -1,0 +1,249 @@
+.category-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+  color: #1d1d1f;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* ── Top Promo Ribbon ── */
+.category-page__promo {
+  width: 100%;
+  background: #f5f5f7;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 12px 20px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.category-page__promo-content {
+  max-width: 1024px;
+  margin: 0 auto;
+  font-size: 14px;
+  line-height: 1.42859;
+  color: #1d1d1f;
+}
+
+.category-page__promo-link {
+  color: #0071e3;
+  text-decoration: none;
+  font-weight: 400;
+  margin-left: 4px;
+}
+
+.category-page__promo-link:hover {
+  text-decoration: underline;
+}
+
+/* ── Category Header Title ── */
+.category-page__header {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 44px 24px 16px;
+  box-sizing: border-box;
+}
+
+.category-page__title {
+  font-size: 80px;
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin: 0;
+  color: #1d1d1f;
+}
+
+/* ── Lineup Section ── */
+.category-page__lineup {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 72px 24px 80px;
+  box-sizing: border-box;
+}
+
+.category-page__lineup-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.category-page__lineup-title {
+  font-size: 44px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.category-page__compare-link {
+  font-size: 15px;
+  color: #0071e3;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.category-page__compare-link:hover {
+  text-decoration: underline;
+}
+
+/* ── Segmented Filter Tabs ── */
+.category-page__tabs {
+  display: inline-flex;
+  background: #f5f5f7;
+  padding: 4px;
+  border-radius: 980px;
+  margin-bottom: 48px;
+  gap: 2px;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+}
+
+.category-page__tab-btn {
+  border: none;
+  background: transparent;
+  padding: 8px 18px;
+  border-radius: 980px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #515154;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.category-page__tab-btn:hover {
+  color: #1d1d1f;
+}
+
+.category-page__tab-btn--active {
+  background: #ffffff;
+  color: #1d1d1f;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Lineup Grid ── */
+.category-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 40px 32px;
+  justify-items: center;
+  align-items: start;
+}
+
+.category-page__no-results {
+  grid-column: 1 / -1;
+  padding: 40px 20px;
+  color: #86868b;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* ── Why Apple Section ── */
+.category-page__why {
+  background-color: #f5f5f7;
+  padding: 72px 24px 80px;
+  box-sizing: border-box;
+}
+
+.category-page__why-title {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  font-size: 40px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: #1d1d1f;
+}
+
+.category-page__why-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.category-page__why-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px 28px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease;
+}
+
+.category-page__why-card:hover {
+  transform: translateY(-2px);
+}
+
+.category-page__why-icon {
+  font-size: 32px;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.category-page__why-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: #1d1d1f;
+}
+
+.category-page__why-card-desc {
+  font-size: 14px;
+  line-height: 1.42859;
+  color: #6e6e73;
+  margin: 0;
+}
+
+/* ── Loader & Error ── */
+.category-page__loader,
+.category-page__error {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.category-page__spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #0071e3;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.category-page__back-btn {
+  margin-top: 16px;
+  background: #0071e3;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 980px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .category-page__title {
+    font-size: 48px;
+  }
+  .category-page__lineup-title,
+  .category-page__why-title {
+    font-size: 28px;
+  }
+}

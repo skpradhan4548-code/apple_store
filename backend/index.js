@@ -30,6 +30,7 @@ app.use(express.json());
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/products', require('./routes/products'));
 app.use('/api/megamenu', require('./routes/megamenu'));
+app.use('/api/categories', require('./routes/categories'));
 
 /* ── Health check ── */
 app.get('/', (req, res) => res.json({ status: 'Apple Store API running ✅' }));
