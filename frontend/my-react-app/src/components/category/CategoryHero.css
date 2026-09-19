@@ -1,0 +1,208 @@
+/* ═══════════════════════════════════════════════════════════
+   CategoryHero — Cinematic Hero Banner
+   Follows Modern CSS & SCSS Industry Standard Guidelines
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Block: Category Hero ── */
+.category-hero {
+  /* Dynamic block-level theme variables (avoids !important) */
+  --hero-headline-color: var(--color-text-primary);
+  --hero-subhead-color:  var(--color-text-quaternary);
+  --hero-avail-color:    var(--color-text-secondary);
+
+  /* Layout */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Box model */
+  width: 100%;
+  padding-block: var(--space-xl) var(--space-lg);
+  padding-inline: var(--page-padding);
+  overflow: hidden;
+
+  /* Typography */
+  text-align: center;
+}
+
+/* ── Modifiers: Theming (zero !important) ── */
+.category-hero--dark {
+  --hero-headline-color: var(--color-dark-text);
+  --hero-subhead-color:  var(--color-dark-subtext);
+  --hero-avail-color:    var(--color-dark-muted);
+
+  background-color: var(--color-bg-dark);
+}
+
+.category-hero--light {
+  --hero-headline-color: var(--color-text-primary);
+  --hero-subhead-color:  var(--color-text-quaternary);
+  --hero-avail-color:    var(--color-text-secondary);
+
+  background-color: var(--color-fill-secondary);
+}
+
+/* ── Element: Content Container ── */
+.category-hero__content {
+  /* Layout */
+  z-index: var(--z-base);
+
+  /* Box model */
+  width: 100%;
+  max-width: 50rem;
+  margin-block-end: var(--space-lg);
+  margin-inline: auto;
+}
+
+/* ── Element: Headline ── */
+.category-hero__headline {
+  /* Box model */
+  margin-block: 0 var(--space-xs);
+
+  /* Typography */
+  color: var(--hero-headline-color);
+  font-size: 2.375rem; /* ~38px on mobile */
+  font-weight: var(--weight-bold);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.015em;
+}
+
+/* ── Element: Subhead ── */
+.category-hero__subhead {
+  /* Box model */
+  margin-block: 0 var(--space-xs);
+
+  /* Typography */
+  color: var(--hero-subhead-color);
+  font-size: 1.1875rem; /* ~19px on mobile */
+  font-weight: var(--weight-regular);
+  line-height: var(--lh-relaxed);
+  opacity: 0.9;
+}
+
+/* ── Element: Availability & Pricing Microcopy ── */
+.category-hero__availability {
+  /* Box model */
+  margin-block: 0 var(--space-md);
+
+  /* Typography */
+  color: var(--hero-avail-color);
+  font-size: var(--font-body-sm);
+  line-height: 1.4;
+  opacity: 0.7;
+}
+
+/* ── Element: CTA Group ── */
+.category-hero__ctas {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+/* ── Element: Generic Hero Button ── */
+.category-hero__btn {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Box model */
+  padding-block: 0.625rem;
+  padding-inline: 1.375rem;
+
+  /* Appearance */
+  border-radius: var(--radius-pill);
+
+  /* Typography */
+  font-size: var(--font-body-sm);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+
+  /* Animation */
+  transition: transform var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.category-hero__btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ── Modifier: Primary CTA ── */
+.category-hero__btn--primary {
+  background-color: var(--apple-blue);
+  color: var(--color-fill);
+}
+
+.category-hero__btn--primary:hover {
+  background-color: var(--apple-blue-hover);
+  transform: scale(1.02);
+}
+
+/* ── Modifier: Secondary CTA ── */
+.category-hero--dark .category-hero__btn--secondary {
+  background-color: transparent;
+  border: 1px solid var(--apple-blue-40);
+  color: var(--apple-blue-dark);
+}
+
+.category-hero--dark .category-hero__btn--secondary:hover {
+  background-color: var(--apple-blue-10);
+  border-color: var(--apple-blue-dark);
+}
+
+.category-hero--light .category-hero__btn--secondary {
+  background-color: transparent;
+  border: 1px solid var(--apple-blue-40);
+  color: var(--apple-blue);
+}
+
+.category-hero--light .category-hero__btn--secondary:hover {
+  background-color: var(--apple-blue-10);
+  border-color: var(--apple-blue);
+}
+
+/* ── Element: Media Showcase ── */
+.category-hero__media {
+  /* Box model */
+  width: 100%;
+  max-width: 61.25rem;
+  margin-inline: auto;
+  overflow: hidden;
+
+  /* Appearance */
+  border-radius: var(--radius-card-lg);
+  box-shadow: var(--shadow-hero);
+}
+
+.category-hero__img {
+  /* Box model */
+  display: block;
+  width: 100%;
+  max-height: 32.5rem;
+
+  /* Appearance */
+  object-fit: cover;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Mobile-First Responsive Breakpoints (min-width)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Tablet & Desktop (min-width: 48rem / 768px) */
+@media (min-width: 48rem) {
+  .category-hero {
+    padding-block: 4rem var(--space-xxl);
+  }
+
+  .category-hero__headline {
+    font-size: var(--font-display-lg);
+  }
+
+  .category-hero__subhead {
+    font-size: var(--font-heading-md);
+  }
+}

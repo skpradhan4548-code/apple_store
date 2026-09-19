@@ -1,0 +1,183 @@
+/* ═══════════════════════════════════════════════════════════
+   StorePage — Main Apple Store Front
+   Follows Modern CSS & SCSS Industry Standard Guidelines
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Block: Store Page Shell ── */
+.store-page {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+
+  /* Box model */
+  width: 100%;
+  min-height: 100vh;
+
+  /* Appearance */
+  background-color: var(--color-fill);
+}
+
+/* ── Element: Generic Section ── */
+.store-page__section {
+  /* Box model */
+  width: 100%;
+  max-width: 77.5rem;
+  margin-inline: auto;
+  padding-block: 3rem 4rem;
+  padding-inline: var(--page-padding);
+}
+
+.store-page__section-header {
+  margin-block-end: var(--space-lg);
+}
+
+.store-page__section-title {
+  /* Box model */
+  margin: 0;
+
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: var(--font-heading-lg);
+  font-weight: var(--weight-bold);
+  line-height: var(--lh-snug);
+  letter-spacing: -0.015em;
+}
+
+.store-page__section-sub {
+  color: var(--color-text-tertiary);
+  font-weight: var(--weight-semibold);
+}
+
+/* ── Element: Grid Layout for Shelves ── */
+.store-page__shelf-slider {
+  /* Layout */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
+  gap: var(--space-lg);
+  justify-items: center;
+  align-items: start;
+}
+
+.store-page__card-wrapper {
+  width: 100%;
+  max-width: 18.75rem;
+}
+
+/* ── Element: Help & Support Callout ── */
+.store-page__help-section {
+  /* Box model */
+  width: 100%;
+  max-width: var(--max-width);
+  margin-block-end: 4rem;
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+}
+
+.store-page__help-card {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+
+  /* Box model */
+  padding-block: 3rem;
+  padding-inline: 2.5rem;
+
+  /* Appearance */
+  background-color: var(--color-fill-secondary);
+  border-radius: var(--radius-card-lg);
+}
+
+.store-page__help-text {
+  max-width: 37.5rem;
+}
+
+.store-page__help-eyebrow {
+  /* Box model */
+  display: block;
+  margin-block-end: var(--space-xxs);
+
+  /* Typography */
+  color: var(--color-text-tertiary);
+  font-size: var(--font-body-xxs);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.05em;
+}
+
+.store-page__help-title {
+  /* Box model */
+  margin-block: 0 var(--space-xxs);
+
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: var(--font-heading-lg);
+  font-weight: var(--weight-bold);
+  line-height: var(--lh-relaxed);
+}
+
+.store-page__help-desc {
+  /* Box model */
+  margin: 0;
+
+  /* Typography */
+  color: var(--color-text-tertiary);
+  font-size: var(--font-body-md);
+  line-height: 1.4;
+}
+
+.store-page__help-btn {
+  /* Box model */
+  padding-block: 0.75rem;
+  padding-inline: var(--space-md);
+  border: 0;
+
+  /* Appearance */
+  background-color: var(--apple-blue);
+  border-radius: var(--radius-pill);
+
+  /* Typography */
+  color: var(--color-fill);
+  font-size: var(--font-body-sm);
+  font-weight: var(--weight-medium);
+
+  /* Interaction */
+  cursor: pointer;
+
+  /* Animation */
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.store-page__help-btn:hover {
+  background-color: var(--apple-blue-hover);
+  transform: scale(1.02);
+}
+
+.store-page__help-btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ── Element: Loader ── */
+.store-page__loader {
+  /* Box model */
+  width: 100%;
+  padding: 2.5rem;
+
+  /* Typography */
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Mobile-First Responsive Breakpoints (min-width)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Tablet & Desktop (min-width: 48rem / 768px) */
+@media (min-width: 48rem) {
+  .store-page__section-title {
+    font-size: 2rem;
+  }
+}

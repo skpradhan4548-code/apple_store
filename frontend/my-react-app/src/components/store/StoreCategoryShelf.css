@@ -1,0 +1,272 @@
+/* ═══════════════════════════════════════════════════════════
+   StoreCategoryShelf — Apple Store Category Row
+   Follows Modern CSS & SCSS Industry Standard Guidelines
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Block: Shelf Container ── */
+.store-shelf {
+  /* Box model */
+  width: 100%;
+  padding-block: 2.5rem var(--space-lg);
+  overflow: hidden;
+
+  /* Appearance */
+  background-color: var(--color-fill-secondary);
+
+  /* Interaction */
+  user-select: none;
+}
+
+/* ── Element: Header ── */
+.store-shelf__header {
+  /* Layout */
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+
+  /* Box model */
+  max-width: var(--max-width);
+  margin-block-end: 2.25rem;
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+}
+
+.store-shelf__header-left {
+  flex: 0 0 auto;
+}
+
+.store-shelf__title {
+  /* Box model */
+  margin: 0;
+
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: 3rem; /* 48px on mobile */
+  font-weight: var(--weight-bold);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.025em;
+}
+
+.store-shelf__header-right {
+  /* Layout */
+  display: flex;
+  flex: 0 1 26.25rem;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.store-shelf__subhead {
+  /* Box model */
+  margin-block: 0 var(--space-xs);
+
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: var(--font-heading-md);
+  font-weight: var(--weight-bold);
+  line-height: var(--lh-normal);
+  letter-spacing: -0.015em;
+}
+
+.store-shelf__links {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.store-shelf__link {
+  /* Typography */
+  color: var(--apple-blue);
+  font-size: var(--font-body-sm);
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.store-shelf__link:hover {
+  text-decoration: underline;
+}
+
+.store-shelf__link:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ── Element: Carousel Stage ── */
+.store-shelf__stage {
+  /* Layout */
+  position: relative;
+
+  /* Box model */
+  max-width: var(--max-width-wide);
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
+
+.store-shelf__track {
+  /* Layout */
+  display: flex;
+  gap: var(--space-md);
+
+  /* Box model */
+  padding-block: var(--space-xs) var(--space-md);
+  padding-inline: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  /* Interaction & Scrolling */
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.store-shelf__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Element: Paddles ── */
+.store-shelf__paddle {
+  /* Layout */
+  position: absolute;
+  inset-block-start: 50%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Box model */
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 0;
+
+  /* Appearance */
+  background-color: var(--color-glass-strong);
+  border-radius: var(--radius-circle);
+  box-shadow: var(--shadow-paddle);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  opacity: 0.9;
+
+  /* Typography */
+  color: var(--color-text-primary);
+
+  /* Interaction */
+  cursor: pointer;
+
+  /* Animation */
+  transform: translateY(-60%);
+  transition: opacity var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.store-shelf__paddle:hover {
+  opacity: 1;
+  box-shadow: 0 0.25rem 1.25rem rgb(0 0 0 / 18%);
+  transform: translateY(-60%) scale(1.05);
+}
+
+.store-shelf__paddle:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.store-shelf__paddle--left {
+  inset-inline-start: 0.25rem;
+}
+
+.store-shelf__paddle--right {
+  inset-inline-end: 0.25rem;
+}
+
+/* ── Element: Card Slot ── */
+.store-shelf__card-slot {
+  flex: 0 0 16.25rem; /* ~260px on mobile */
+  scroll-snap-align: start;
+}
+
+/* ── Element: Pagination Indicators ── */
+.store-shelf__pagination {
+  /* Layout */
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xxs);
+
+  /* Box model */
+  margin-block-start: var(--space-sm);
+}
+
+.store-shelf__dot {
+  /* Box model */
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-circle);
+
+  /* Appearance */
+  background-color: rgb(0 0 0 / 15%);
+
+  /* Interaction */
+  cursor: pointer;
+
+  /* Animation */
+  transition: transform var(--transition-normal), background-color var(--transition-normal);
+}
+
+.store-shelf__dot:hover {
+  background-color: rgb(0 0 0 / 40%);
+}
+
+.store-shelf__dot:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.store-shelf__dot--active {
+  background-color: var(--color-text-primary);
+  transform: scale(1.25);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Mobile-First Responsive Breakpoints (min-width)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Tablet (min-width: 48rem / 768px) */
+@media (min-width: 48rem) {
+  .store-shelf__title {
+    font-size: 4rem;
+  }
+
+  .store-shelf__subhead {
+    font-size: var(--font-heading-lg);
+  }
+
+  .store-shelf__stage {
+    padding-inline: var(--space-xxl);
+  }
+
+  .store-shelf__paddle {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .store-shelf__paddle--left {
+    inset-inline-start: 0.5rem;
+  }
+
+  .store-shelf__paddle--right {
+    inset-inline-end: 0.5rem;
+  }
+
+  .store-shelf__card-slot {
+    flex: 0 0 18.75rem; /* 300px */
+  }
+}
+
+/* Desktop (min-width: 64rem / 1024px) */
+@media (min-width: 64rem) {
+  .store-shelf__title {
+    font-size: var(--font-display-xl); /* 80px */
+  }
+}

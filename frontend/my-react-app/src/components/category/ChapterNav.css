@@ -1,0 +1,211 @@
+/* ═══════════════════════════════════════════════════════════
+   ChapterNav — Horizontal scrolling product ribbon
+   Follows Modern CSS & SCSS Industry Standard Guidelines
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Block: ChapterNav Shell ── */
+.chapternav {
+  /* Layout */
+  position: relative;
+  z-index: 10;
+
+  /* Box model */
+  width: 100%;
+
+  /* Appearance */
+  background-color: var(--color-fill);
+  border-block-end: 1px solid var(--color-border-light);
+
+  /* Interaction */
+  user-select: none;
+}
+
+/* ── Element: Max-width wrapper ── */
+.chapternav__wrapper {
+  /* Layout */
+  position: relative;
+
+  /* Box model */
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-block: var(--space-xs) var(--space-sm);
+  padding-inline: var(--page-padding);
+}
+
+/* ── Element: Items Track (Mobile-First: scrollable flex) ── */
+.chapternav__items {
+  /* Layout */
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: var(--space-md);
+
+  /* Box model */
+  margin: 0;
+  padding: 0;
+  padding-inline: var(--space-xs);
+  overflow-x: auto;
+
+  /* Appearance */
+  list-style: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  /* Animation */
+  scroll-behavior: smooth;
+}
+
+.chapternav__items::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Element: Single Item ── */
+.chapternav__item {
+  flex: 0 0 auto;
+}
+
+/* ── Element: Item Link ── */
+.chapternav__link {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Box model */
+  min-width: 4.25rem;
+
+  /* Typography */
+  text-decoration: none;
+
+  /* Animation */
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.chapternav__link:hover {
+  opacity: 0.8;
+  transform: translateY(-0.0625rem);
+}
+
+.chapternav__link:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ── Element: Icon Wrapper ── */
+.chapternav__icon-wrapper {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Box model */
+  height: 3.375rem;
+  margin-block-end: 0.375rem;
+}
+
+/* ── Element: Product Silhouette Icon ── */
+.chapternav__icon {
+  /* Box model */
+  display: block;
+  width: 3.25rem;
+  height: 2.625rem;
+  max-width: 4.5rem;
+  max-height: 3.25rem;
+
+  /* Appearance */
+  object-fit: contain;
+}
+
+/* ── Element: Category / Device Label ── */
+.chapternav__label {
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: var(--font-body-xxs);
+  font-weight: var(--weight-regular);
+  line-height: var(--lh-loose);
+  letter-spacing: -0.01em;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ── Element: Badge (e.g., "New") ── */
+.chapternav__badge {
+  /* Layout */
+  display: inline-block;
+
+  /* Box model */
+  margin-block-start: var(--space-nano);
+
+  /* Typography */
+  color: var(--apple-tag);
+  font-size: var(--font-micro-sm);
+  font-weight: var(--weight-semibold);
+  line-height: var(--lh-relaxed);
+  letter-spacing: -0.01em;
+}
+
+/* ── Element: Scroll Paddle ── */
+.chapternav__paddle {
+  /* Layout */
+  position: absolute;
+  inset-block-start: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+
+  /* Box model */
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+
+  /* Appearance */
+  background-color: var(--color-glass);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-circle);
+  box-shadow: var(--shadow-paddle);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+
+  /* Typography */
+  color: var(--color-text-primary);
+
+  /* Interaction */
+  cursor: pointer;
+
+  /* Animation */
+  transform: translateY(-50%);
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.chapternav__paddle:hover {
+  background-color: var(--color-fill);
+  transform: translateY(-50%) scale(1.06);
+}
+
+.chapternav__paddle:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ── Modifiers: Paddle Alignment ── */
+.chapternav__paddle--left {
+  inset-inline-start: 0.5rem;
+}
+
+.chapternav__paddle--right {
+  inset-inline-end: 0.5rem;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Mobile-First Responsive Breakpoints (min-width)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Tablet & Desktop (min-width: 48rem / 768px) */
+@media (min-width: 48rem) {
+  .chapternav__items {
+    justify-content: center;
+    gap: 2.25rem;
+    padding-inline: 0;
+  }
+}

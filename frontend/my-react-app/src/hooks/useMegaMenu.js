@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-
-const API_BASE_URL = 'http://localhost:5000';
+import apiClient from '../services/apiClient';
 
 /**
  * useMegaMenu Hook
@@ -12,20 +11,19 @@ export const useMegaMenu = () => {
   const [activeMenu, setActiveMenu] = useState(null);
   const closeTimerRef = useRef(null);
 
-  // Fetch navigation data from backend
+  // Fetch navigation data from backend via apiClient
   useEffect(() => {
     let isMounted = true;
 
     const fetchMenu = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`${API_BASE_URL}/api/megamenu`);
-        const json = await res.json();
-        if (json.success && isMounted) {
-          setMenuData(json.data);
+        const data = await apiClient.getMegaMenu();
+        if (isMounted && data) {
+          setMenuData(data);
         }
       } catch (err) {
-        console.warn('Backend megamenu fetch error:', err);
+        console.warn('Backend megamenu fetch error, falling back:', err.message);
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -69,3 +67,5 @@ export const useMegaMenu = () => {
     closeImmediately,
   };
 };
+
+export default useMegaMenu;

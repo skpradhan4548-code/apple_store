@@ -1,12 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
-import Home        from './componets/Home';
-import Login       from './componets/login';
-import ProductPage from './componets/ProductPage';
-import CartPage    from './componets/CartPage';
-import CategoryPage from './componets/category/CategoryPage';
-import StorePage    from './componets/store/StorePage';
+import Home        from './components/Home';
+import Login       from './components/Login';
+import ProductPage from './components/ProductPage';
+import CartPage    from './components/CartPage';
+import CheckoutPage from './components/CheckoutPage';
+import OrdersPage   from './components/OrdersPage';
+import CategoryPage from './components/category/CategoryPage';
+import StorePage    from './components/store/StorePage';
 import './App.css';
 
 function App() {
@@ -22,8 +24,10 @@ function App() {
             {/* Product detail */}
             <Route path="/product/:id" element={<ProductPage />} />
 
-            {/* Cart */}
+            {/* Cart, Checkout & Orders */}
             <Route path="/cart"      element={<CartPage />} />
+            <Route path="/checkout"  element={<CheckoutPage />} />
+            <Route path="/orders"    element={<OrdersPage />} />
 
             {/* Auth */}
             <Route path="/login"     element={<Login />} />

@@ -151,6 +151,61 @@ const DEFAULT_CATEGORIES = {
       theme: 'dark',
     },
   },
+  'tv-home': {
+    slug: 'tv-home',
+    title: 'TV & Home',
+    promo: {
+      text: 'Get 3 months of Apple TV+ free when you buy an Apple device.*',
+      linkText: 'Shop',
+      linkUrl: '/tv-home',
+    },
+    chapterNav: [
+      { label: 'Apple TV 4K', icon: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/apple-tv-4k-hero-select-202210?wid=200&hei=130&fmt=png-alpha&qlt=90', badge: null, path: '/tv-home' },
+      { label: 'HomePod', icon: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/homepod-select-midnight-202210?wid=200&hei=130&fmt=png-alpha&qlt=90', badge: null, path: '/tv-home' },
+      { label: 'HomePod mini', icon: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/homepod-mini-select-yellow-202110?wid=200&hei=130&fmt=png-alpha&qlt=90', badge: null, path: '/tv-home' },
+      { label: 'Accessories', icon: 'https://www.apple.com/v/tv-home/k/images/chapternav/tv_home_accessories__bv47p7a08bwm_large.svg', badge: null, path: '/tv-home' },
+    ],
+    filterTabs: ['All Models', 'Apple TV', 'HomePod'],
+    hero: {
+      headline: 'Apple TV 4K',
+      subhead: 'The Apple experience. Cinematic in every sense.',
+      availability: 'From ₹14,900.00*',
+      primaryCtaText: 'Learn more',
+      primaryCtaLink: '/tv-home',
+      secondaryCtaText: 'Buy',
+      secondaryCtaLink: '/tv-home',
+      image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=1200&q=80',
+      theme: 'dark',
+    },
+  },
+  entertainment: {
+    slug: 'entertainment',
+    title: 'Entertainment',
+    promo: {
+      text: 'Get up to 3 months free of your favourite Apple services.**',
+      linkText: 'Learn more',
+      linkUrl: '/entertainment',
+    },
+    chapterNav: [
+      { label: 'Apple One', icon: 'https://www.apple.com/v/entertainment/l/images/overview/hero_apple_one__ch519s47n7ie_large.svg', badge: null, path: '/entertainment' },
+      { label: 'Apple TV+', icon: 'https://www.apple.com/v/entertainment/l/images/overview/hero_apple_tv_plus__eox08f57v4eq_large.svg', badge: null, path: '/entertainment' },
+      { label: 'Apple Music', icon: 'https://www.apple.com/v/entertainment/l/images/overview/hero_apple_music__by851u15ymc2_large.svg', badge: null, path: '/entertainment' },
+      { label: 'Apple Arcade', icon: 'https://www.apple.com/v/entertainment/l/images/overview/hero_apple_arcade__d2zsz6r51l26_large.svg', badge: null, path: '/entertainment' },
+      { label: 'Apple Podcasts', icon: 'https://www.apple.com/v/entertainment/l/images/overview/hero_apple_podcasts__drptq7y01242_large.svg', badge: null, path: '/entertainment' },
+    ],
+    filterTabs: ['All Services'],
+    hero: {
+      headline: 'Apple TV+',
+      subhead: 'Get 3 months of Apple TV+ free when you buy an Apple device.',
+      availability: '₹99/month after free trial.',
+      primaryCtaText: 'Try it free',
+      primaryCtaLink: '/entertainment',
+      secondaryCtaText: 'Learn more',
+      secondaryCtaLink: '/entertainment',
+      image: 'https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=1200&q=80',
+      theme: 'dark',
+    },
+  },
 };
 
 /* ── GET /api/categories/:slug ── */

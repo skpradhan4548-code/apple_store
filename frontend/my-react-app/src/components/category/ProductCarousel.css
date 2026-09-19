@@ -1,0 +1,754 @@
+/* ═══════════════════════════════════════════════════════════
+   ProductCarousel — Horizontal product scroller
+   Follows Modern CSS & SCSS Industry Standard Guidelines
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Block: Carousel Root ── */
+.prod-carousel {
+  /* Box model */
+  width: 100%;
+  padding-block: var(--space-xl) var(--section-gap-md);
+  overflow: hidden;
+}
+
+/* ── Element: Header ── */
+.prod-carousel__header {
+  /* Box model */
+  max-width: var(--max-width);
+  margin-block-end: var(--space-lg);
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+}
+
+.prod-carousel__title {
+  /* Box model */
+  margin-block: 0 var(--space-nano);
+
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: var(--font-heading-lg);
+  font-weight: var(--weight-bold);
+  line-height: var(--lh-snug);
+  letter-spacing: -0.015em;
+}
+
+.prod-carousel__subtitle {
+  /* Box model */
+  margin: 0;
+
+  /* Typography */
+  color: var(--color-text-tertiary);
+  font-size: var(--font-body-md);
+  font-weight: var(--weight-regular);
+  line-height: 1.4;
+}
+
+/* ── Element: Carousel Stage ── */
+.prod-carousel__stage {
+  /* Layout */
+  position: relative;
+
+  /* Box model */
+  max-width: var(--max-width-wide);
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
+
+/* ── Element: Product Track ── */
+.prod-carousel__track {
+  /* Layout */
+  display: flex;
+  gap: var(--space-md);
+
+  /* Box model */
+  padding-block: var(--space-xs) var(--space-md);
+  padding-inline: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  /* Interaction & Scrolling */
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.prod-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Element: Navigation Paddle ── */
+.prod-carousel__paddle {
+  /* Layout */
+  position: absolute;
+  inset-block-start: 50%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Box model */
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 0;
+
+  /* Appearance */
+  background-color: var(--color-glass-strong);
+  border-radius: var(--radius-circle);
+  box-shadow: var(--shadow-paddle);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  opacity: 0.9;
+
+  /* Typography */
+  color: var(--color-text-primary);
+
+  /* Interaction */
+  cursor: pointer;
+
+  /* Animation */
+  transform: translateY(-60%);
+  transition: opacity var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.prod-carousel__paddle:hover {
+  opacity: 1;
+  box-shadow: 0 0.25rem 1.25rem rgb(0 0 0 / 18%);
+  transform: translateY(-60%) scale(1.05);
+}
+
+.prod-carousel__paddle:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ── Modifiers: Paddle Alignment ── */
+.prod-carousel__paddle--left {
+  inset-inline-start: 0.25rem;
+}
+
+.prod-carousel__paddle--right {
+  inset-inline-end: 0.25rem;
+}
+
+/* ── Element: Product Carousel Card (Mobile: 230px base) ── */
+.prod-carousel__card {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 14.375rem; /* 230px */
+
+  /* Box model */
+  border: 1px solid var(--color-border-lighter);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+
+  /* Appearance */
+  background-color: var(--color-fill);
+
+  /* Interaction */
+  cursor: pointer;
+  scroll-snap-align: start;
+  outline: none;
+
+  /* Animation */
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.prod-carousel__card:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: var(--shadow-xl);
+  border-color: rgb(0 0 0 / 10%);
+}
+
+.prod-carousel__card:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.prod-carousel__card--active {
+  border-color: rgb(0 113 227 / 20%);
+}
+
+/* ── Element: Card Media Container ── */
+.prod-carousel__card-media {
+  /* Layout */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Box model */
+  width: 100%;
+  height: 10.625rem; /* 170px */
+  padding: var(--space-md);
+  overflow: hidden;
+}
+
+.prod-carousel__card-badge {
+  /* Layout */
+  position: absolute;
+  inset-block-start: 0.875rem;
+  inset-inline-start: 0.875rem;
+
+  /* Box model */
+  padding-block: var(--space-micro);
+  padding-inline: 0.625rem;
+  border-radius: var(--radius-pill);
+
+  /* Appearance */
+  background-color: var(--apple-orange);
+
+  /* Typography */
+  color: var(--color-fill);
+  font-size: var(--font-micro);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.prod-carousel__card-img {
+  /* Box model */
+  max-width: 85%;
+  max-height: 85%;
+
+  /* Appearance */
+  object-fit: contain;
+
+  /* Animation */
+  transition: transform var(--transition-slow);
+}
+
+.prod-carousel__card:hover .prod-carousel__card-img {
+  transform: scale(1.06);
+}
+
+/* ── Element: Card Color Dots ── */
+.prod-carousel__card-dots {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+
+  /* Box model */
+  padding-block: 0.625rem var(--space-micro);
+  padding-inline: var(--space-sm);
+}
+
+.prod-carousel__card-dot {
+  /* Box model */
+  display: inline-block;
+  width: 0.625rem;
+  height: 0.625rem;
+  border: 1px solid rgb(0 0 0 / 12%);
+  border-radius: var(--radius-circle);
+}
+
+.prod-carousel__card-dot-more {
+  /* Box model */
+  margin-inline-start: var(--space-nano);
+
+  /* Typography */
+  color: var(--color-text-secondary);
+  font-size: var(--font-micro-sm);
+  font-weight: var(--weight-medium);
+}
+
+/* ── Element: Card Info ── */
+.prod-carousel__card-info {
+  /* Layout */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  /* Box model */
+  padding-block: var(--space-xs) var(--space-md);
+  padding-inline: var(--space-md);
+
+  /* Typography */
+  text-align: center;
+}
+
+.prod-carousel__card-name {
+  /* Box model */
+  margin-block: 0 var(--space-micro);
+
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: var(--font-body-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.01em;
+}
+
+.prod-carousel__card-tagline {
+  /* Layout */
+  flex: 1;
+
+  /* Box model */
+  margin-block: 0 0.625rem;
+
+  /* Typography */
+  color: var(--color-text-tertiary);
+  font-size: var(--font-body-xxs);
+  line-height: 1.4;
+}
+
+.prod-carousel__card-price {
+  /* Layout */
+  margin-block: auto 0;
+
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: var(--font-body-sm);
+  font-weight: var(--weight-regular);
+}
+
+/* ── Element: Pagination Indicators ── */
+.prod-carousel__pagination {
+  /* Layout */
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xxs);
+
+  /* Box model */
+  margin-block-start: var(--space-md);
+}
+
+.prod-carousel__dot {
+  /* Box model */
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-circle);
+
+  /* Appearance */
+  background-color: rgb(0 0 0 / 15%);
+
+  /* Interaction */
+  cursor: pointer;
+
+  /* Animation */
+  transition: transform var(--transition-normal), background-color var(--transition-normal);
+}
+
+.prod-carousel__dot:hover {
+  background-color: rgb(0 0 0 / 40%);
+}
+
+.prod-carousel__dot:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.prod-carousel__dot--active {
+  background-color: var(--color-text-primary);
+  transform: scale(1.25);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Spotlight Modal (BEM: .prod-carousel__spotlight-*)
+   ═══════════════════════════════════════════════════════════ */
+
+.prod-carousel__spotlight-overlay {
+  /* Layout */
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Box model */
+  padding: var(--space-md);
+
+  /* Appearance */
+  background-color: rgb(0 0 0 / 55%);
+  backdrop-filter: blur(var(--blur-overlay));
+  -webkit-backdrop-filter: blur(var(--blur-overlay));
+
+  /* Animation */
+  animation: spotlightFadeIn var(--duration-normal) var(--ease-out);
+}
+
+@keyframes spotlightFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.prod-carousel__spotlight {
+  /* Layout */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  /* Box model */
+  width: 100%;
+  max-width: 25rem;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  /* Appearance */
+  background-color: var(--color-fill);
+  border-radius: var(--radius-card-lg);
+  box-shadow: 0 2.5rem 5rem rgb(0 0 0 / 25%);
+
+  /* Animation */
+  animation: spotlightSlideIn 400ms var(--ease-apple);
+}
+
+@keyframes spotlightSlideIn {
+  from {
+    transform: translateY(1.5rem) scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.prod-carousel__spotlight-close {
+  /* Layout */
+  position: absolute;
+  inset-block-start: var(--space-sm);
+  inset-inline-end: var(--space-sm);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Box model */
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+
+  /* Appearance */
+  background-color: var(--color-border-lighter);
+  border-radius: var(--radius-circle);
+
+  /* Typography */
+  color: var(--color-text-primary);
+
+  /* Interaction */
+  cursor: pointer;
+
+  /* Animation */
+  transition: background-color var(--transition-fast);
+}
+
+.prod-carousel__spotlight-close:hover {
+  background-color: rgb(0 0 0 / 12%);
+}
+
+.prod-carousel__spotlight-close:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.prod-carousel__spotlight-media {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Box model */
+  min-height: 15rem;
+  padding: var(--space-md);
+  border-radius: var(--radius-card-lg) var(--radius-card-lg) 0 0;
+}
+
+.prod-carousel__spotlight-img {
+  /* Box model */
+  max-width: 90%;
+  max-height: 18.75rem;
+
+  /* Appearance */
+  object-fit: contain;
+
+  /* Animation */
+  transition: transform var(--transition-slow);
+}
+
+.prod-carousel__spotlight-details {
+  /* Layout */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-xxs);
+
+  /* Box model */
+  padding: var(--space-md);
+}
+
+.prod-carousel__spotlight-badge {
+  /* Box model */
+  width: fit-content;
+  margin-block-end: var(--space-micro);
+  padding-block: var(--space-micro);
+  padding-inline: 0.625rem;
+
+  /* Appearance */
+  background-color: var(--apple-orange);
+  border-radius: var(--radius-pill);
+
+  /* Typography */
+  color: var(--color-fill);
+  font-size: var(--font-micro);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.prod-carousel__spotlight-name {
+  /* Box model */
+  margin: 0;
+
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: var(--font-heading-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.02em;
+}
+
+.prod-carousel__spotlight-tagline {
+  /* Box model */
+  margin: 0;
+
+  /* Typography */
+  color: var(--color-text-tertiary);
+  font-size: var(--font-body-sm);
+  line-height: var(--lh-body);
+}
+
+.prod-carousel__spotlight-price {
+  /* Box model */
+  margin-block: var(--space-micro);
+
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: var(--font-body-lg);
+  font-weight: var(--weight-regular);
+}
+
+.prod-carousel__spotlight-swatches {
+  /* Layout */
+  display: flex;
+  gap: var(--space-xxs);
+
+  /* Box model */
+  margin-block: var(--space-xxs);
+}
+
+.prod-carousel__spotlight-swatch {
+  /* Box model */
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 2px solid transparent;
+
+  /* Appearance */
+  border-radius: var(--radius-circle);
+  box-shadow: var(--swatch-inset);
+
+  /* Interaction */
+  cursor: pointer;
+
+  /* Animation */
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.prod-carousel__spotlight-swatch:hover {
+  transform: scale(1.15);
+}
+
+.prod-carousel__spotlight-swatch:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.prod-carousel__spotlight-swatch--active {
+  border-color: var(--apple-blue);
+  box-shadow: 0 0 0 2px var(--apple-blue), inset 0 0 0 1px rgb(0 0 0 / 12%);
+}
+
+.prod-carousel__spotlight-specs {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+
+  /* Box model */
+  margin-block: var(--space-xs) 0;
+  padding: 0;
+
+  /* Appearance */
+  list-style: none;
+}
+
+.prod-carousel__spotlight-spec {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.prod-carousel__spotlight-spec strong {
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: var(--font-body-md);
+  font-weight: var(--weight-semibold);
+}
+
+.prod-carousel__spotlight-spec span {
+  /* Typography */
+  color: var(--color-text-secondary);
+  font-size: var(--font-body-xxs);
+}
+
+.prod-carousel__spotlight-ctas {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-block-start: auto;
+
+  /* Box model */
+  padding-block-start: var(--space-md);
+}
+
+.prod-carousel__spotlight-btn {
+  /* Box model */
+  border-radius: var(--radius-pill);
+
+  /* Typography */
+  font-size: var(--font-body-sm);
+  font-weight: var(--weight-regular);
+  text-decoration: none;
+
+  /* Interaction */
+  cursor: pointer;
+
+  /* Animation */
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.prod-carousel__spotlight-btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.prod-carousel__spotlight-btn--buy {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+
+  /* Box model */
+  padding-block: 0.625rem;
+  padding-inline: var(--space-md);
+  border: 0;
+
+  /* Appearance */
+  background-color: var(--apple-blue);
+
+  /* Typography */
+  color: var(--color-fill);
+}
+
+.prod-carousel__spotlight-btn--buy:hover {
+  background-color: var(--apple-blue-hover);
+}
+
+.prod-carousel__spotlight-btn--learn {
+  /* Box model */
+  padding-block: 0.625rem;
+  padding-inline: 0;
+
+  /* Typography */
+  color: var(--apple-blue);
+}
+
+.prod-carousel__spotlight-btn--learn:hover {
+  text-decoration: underline;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Mobile-First Responsive Breakpoints (min-width)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Tablet (min-width: 48rem / 768px) */
+@media (min-width: 48rem) {
+  .prod-carousel {
+    padding-block: 3.75rem var(--section-gap-md);
+  }
+
+  .prod-carousel__title {
+    font-size: var(--font-display-sm);
+  }
+
+  .prod-carousel__subtitle {
+    font-size: var(--font-body-lg);
+  }
+
+  .prod-carousel__stage {
+    padding-inline: var(--space-xxl);
+  }
+
+  .prod-carousel__paddle {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .prod-carousel__paddle--left {
+    inset-inline-start: 0.5rem;
+  }
+
+  .prod-carousel__paddle--right {
+    inset-inline-end: 0.5rem;
+  }
+
+  .prod-carousel__card {
+    flex: 0 0 16.25rem; /* 260px */
+  }
+
+  .prod-carousel__card-media {
+    height: 12.5rem; /* 200px */
+  }
+
+  .prod-carousel__card-name {
+    font-size: 1.1875rem; /* 19px */
+  }
+
+  /* Spotlight modal splits into two columns */
+  .prod-carousel__spotlight {
+    flex-direction: row;
+    max-width: 47.5rem; /* 760px */
+  }
+
+  .prod-carousel__spotlight-media {
+    flex: 0 0 50%;
+    border-radius: var(--radius-card-lg) 0 0 var(--radius-card-lg);
+    min-height: 22.5rem;
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .prod-carousel__spotlight-details {
+    padding: var(--space-xl) var(--space-lg) var(--space-xl) var(--space-md);
+  }
+
+  .prod-carousel__spotlight-name {
+    font-size: var(--font-heading-lg);
+  }
+}
+
+/* Desktop (min-width: 64rem / 1024px) */
+@media (min-width: 64rem) {
+  .prod-carousel__card {
+    flex: 0 0 18.75rem; /* 300px */
+  }
+
+  .prod-carousel__card-media {
+    height: 15rem; /* 240px */
+  }
+}

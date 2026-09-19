@@ -1,31 +1,64 @@
-/* ═══════════════════════════════════════════════
-   APP.CSS — Global Reset & Base (uses core tokens)
-   ═══════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   APP.CSS — Global Reset & Base Typography
+   Follows Modern CSS & SCSS Industry Standard Guidelines
+   ═══════════════════════════════════════════════════════════ */
 
-*, *::before, *::after {
+/* ── Reset & Box Sizing ── */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 html {
-  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-stack);
-  background: var(--color-fill-secondary);
-  color: var(--color-text-primary);
-  line-height: var(--lh-body);
+  /* Box model */
+  width: 100%;
+  min-height: 100vh;
   overflow-x: hidden;
+
+  /* Appearance */
+  background-color: var(--color-fill-secondary);
+
+  /* Typography */
+  color: var(--color-text-primary);
+  font-family: var(--font-stack);
+  line-height: var(--lh-body);
 }
 
-img, svg { display: block; max-width: 100%; }
+/* ── Media Elements ── */
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
 
-a { color: inherit; }
+/* ── Links & Buttons ── */
+a {
+  color: inherit;
+}
 
-button { font-family: inherit; }
+button {
+  font-family: inherit;
+}
 
-#root { min-height: 100vh; }
+/* ── Global Accessible Focus Indicator ── */
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ── Root Application Mount (Class selector, low specificity) ── */
+.app-container,
+[id="root"] {
+  min-height: 100vh;
+}

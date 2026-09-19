@@ -1,0 +1,381 @@
+/* ═══════════════════════════════════════════════════════════
+   CategoryPage — Layout shell for category routes
+   Follows Modern CSS & SCSS Industry Standard Guidelines
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Block: Category Page Container ── */
+.category-page {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+
+  /* Box model */
+  width: 100%;
+  min-height: 100vh;
+
+  /* Appearance */
+  background-color: var(--color-fill);
+
+  /* Typography */
+  color: var(--color-text-primary);
+}
+
+/* ── Element: Promo Ribbon ── */
+.category-page__promo {
+  /* Box model */
+  width: 100%;
+  padding-block: var(--space-xs);
+  padding-inline: var(--page-padding);
+
+  /* Appearance */
+  background-color: var(--color-fill-secondary);
+  border-block-end: 1px solid var(--color-border-light);
+
+  /* Typography */
+  text-align: center;
+}
+
+.category-page__promo-content {
+  /* Box model */
+  max-width: var(--max-width);
+  margin-inline: auto;
+
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: var(--font-body-sm);
+  line-height: var(--lh-loose);
+}
+
+.category-page__promo-link {
+  /* Box model */
+  margin-inline-start: var(--space-micro);
+
+  /* Typography */
+  color: var(--apple-blue);
+  font-weight: var(--weight-regular);
+  text-decoration: none;
+}
+
+.category-page__promo-link:hover {
+  text-decoration: underline;
+}
+
+.category-page__promo-link:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ── Element: Category Header Title ── */
+.category-page__header {
+  /* Box model */
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-block: 2.75rem var(--space-sm);
+  padding-inline: var(--page-padding);
+}
+
+.category-page__title {
+  /* Box model */
+  margin: 0;
+
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: 3rem; /* 48px on mobile */
+  font-weight: var(--weight-bold);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.025em;
+}
+
+/* ── Element: Lineup Section ── */
+.category-page__lineup {
+  /* Box model */
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-block: var(--section-gap-md) var(--section-gap-lg);
+  padding-inline: var(--page-padding);
+}
+
+.category-page__lineup-header {
+  /* Layout */
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+
+  /* Box model */
+  margin-block-end: var(--space-lg);
+}
+
+.category-page__lineup-title {
+  /* Box model */
+  margin: 0;
+
+  /* Typography */
+  font-size: var(--font-heading-lg); /* ~28px on mobile */
+  font-weight: var(--weight-bold);
+  line-height: var(--lh-snug);
+  letter-spacing: -0.015em;
+}
+
+.category-page__compare-link {
+  /* Typography */
+  color: var(--apple-blue);
+  font-size: var(--font-body-md);
+  font-weight: var(--weight-regular);
+  text-decoration: none;
+}
+
+.category-page__compare-link:hover {
+  text-decoration: underline;
+}
+
+.category-page__compare-link:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ── Element: Filter Tabs Pills ── */
+.category-page__tabs {
+  /* Layout */
+  display: inline-flex;
+  gap: var(--space-nano);
+  flex-wrap: wrap;
+
+  /* Box model */
+  margin-block-end: var(--space-xxl);
+  padding: var(--space-micro);
+
+  /* Appearance */
+  background-color: var(--color-fill-secondary);
+  border-radius: var(--radius-pill);
+}
+
+.category-page__tab-btn {
+  /* Box model */
+  padding-block: var(--space-xxs);
+  padding-inline: 1.125rem;
+  border: 0;
+
+  /* Appearance */
+  background-color: transparent;
+  border-radius: var(--radius-pill);
+
+  /* Typography */
+  color: var(--color-text-quaternary);
+  font-size: var(--font-body-sm);
+  font-weight: var(--weight-medium);
+
+  /* Interaction */
+  cursor: pointer;
+
+  /* Animation */
+  transition: color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.category-page__tab-btn:hover {
+  color: var(--color-text-primary);
+}
+
+.category-page__tab-btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.category-page__tab-btn--active {
+  background-color: var(--color-fill);
+  box-shadow: var(--shadow-sm);
+  color: var(--color-text-primary);
+}
+
+/* ── Element: Product Lineup Grid ── */
+.category-page__grid {
+  /* Layout */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
+  gap: var(--space-xl) var(--space-lg);
+  justify-items: center;
+  align-items: start;
+}
+
+.category-page__no-results {
+  /* Layout */
+  grid-column: 1 / -1;
+
+  /* Box model */
+  padding-block: var(--space-xl);
+  padding-inline: var(--page-padding);
+
+  /* Typography */
+  color: var(--color-text-secondary);
+  font-size: var(--font-body-sm);
+  text-align: center;
+}
+
+/* ── Element: "Why Apple" Ecosystem Section ── */
+.category-page__why {
+  /* Box model */
+  padding-block: var(--section-gap-md) var(--section-gap-lg);
+  padding-inline: var(--page-padding);
+
+  /* Appearance */
+  background-color: var(--color-fill-secondary);
+}
+
+.category-page__why-title {
+  /* Box model */
+  max-width: var(--max-width);
+  margin-block: 0 var(--space-xl);
+  margin-inline: auto;
+
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: var(--font-heading-lg); /* on mobile */
+  font-weight: var(--weight-bold);
+  line-height: var(--lh-snug);
+  letter-spacing: -0.015em;
+}
+
+.category-page__why-grid {
+  /* Layout */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr));
+  gap: var(--space-md);
+
+  /* Box model */
+  max-width: var(--max-width);
+  margin-inline: auto;
+}
+
+.category-page__why-card {
+  /* Box model */
+  padding-block: var(--space-lg);
+  padding-inline: 1.75rem;
+
+  /* Appearance */
+  background-color: var(--color-fill);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-md);
+
+  /* Animation */
+  transition: transform var(--transition-fast);
+}
+
+.category-page__why-card:hover {
+  transform: translateY(-0.125rem);
+}
+
+.category-page__why-icon {
+  /* Layout */
+  display: inline-block;
+
+  /* Box model */
+  margin-block-end: var(--space-sm);
+
+  /* Typography */
+  font-size: 2rem;
+}
+
+.category-page__why-card-title {
+  /* Box model */
+  margin-block: 0 var(--space-xxs);
+
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: var(--font-heading-xs);
+  font-weight: var(--weight-bold);
+}
+
+.category-page__why-card-desc {
+  /* Box model */
+  margin: 0;
+
+  /* Typography */
+  color: var(--color-text-tertiary);
+  font-size: var(--font-body-sm);
+  line-height: var(--lh-loose);
+}
+
+/* ── Element: Loading & Error States ── */
+.category-page__loader,
+.category-page__error {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* Box model */
+  min-height: 50vh;
+  padding-block: 3.75rem;
+  padding-inline: var(--page-padding);
+
+  /* Typography */
+  text-align: center;
+}
+
+.category-page__spinner {
+  /* Box model */
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-block-end: var(--space-sm);
+
+  /* Appearance */
+  border: 3px solid rgb(0 0 0 / 10%);
+  border-block-start-color: var(--apple-blue);
+  border-radius: var(--radius-circle);
+
+  /* Animation */
+  animation: category-spin 0.8s linear infinite;
+}
+
+@keyframes category-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.category-page__back-btn {
+  /* Layout */
+  display: inline-flex;
+
+  /* Box model */
+  margin-block-start: var(--space-sm);
+  padding-block: 0.625rem;
+  padding-inline: var(--page-padding);
+
+  /* Appearance */
+  background-color: var(--apple-blue);
+  border-radius: var(--radius-pill);
+
+  /* Typography */
+  color: var(--color-fill);
+  font-size: var(--font-body-sm);
+  text-decoration: none;
+}
+
+.category-page__back-btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Mobile-First Responsive Breakpoints (min-width)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Tablet & Desktop (min-width: 48rem / 768px) */
+@media (min-width: 48rem) {
+  .category-page__title {
+    font-size: var(--font-display-xl);
+  }
+
+  .category-page__lineup-title {
+    font-size: var(--font-display-md);
+  }
+
+  .category-page__why-title {
+    font-size: var(--font-display-sm);
+  }
+}

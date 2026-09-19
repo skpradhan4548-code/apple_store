@@ -18,9 +18,15 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
   }, [items]);
 
-  const addToCart = useCallback((product, variant = null, qty = 1) => {
+  const addToCart = useCallback((product, selectedOptions = null, qty = 1) => {
     setItems(prev => {
-      const key = `${product.id}-${variant?.label || 'default'}`;
+      const colorLabel = selectedOptions?.color || (typeof selectedOptions?.label === 'string' && !selectedOptions.storage ? selectedOptions.label : null);
+      const storageLabel = selectedOptions?.storage || null;
+      const variantLabel = [colorLabel, storageLabel].filter(Boolean).join(', ') || selectedOptions?.label || null;
+      const price = Number(selectedOptions?.price ?? product.basePrice);
+      const image = selectedOptions?.image || product.image;
+
+      const key = `${product.id}-${colorLabel || 'any'}-${storageLabel || 'any'}`;
       const existing = prev.find(i => i.key === key);
       if (existing) {
         return prev.map(i => i.key === key ? { ...i, qty: i.qty + qty } : i);
@@ -29,9 +35,11 @@ export const CartProvider = ({ children }) => {
         key,
         id:       product.id,
         name:     product.name,
-        price:    variant?.price || product.basePrice,
-        image:    product.image,
-        variant:  variant?.label || null,
+        price,
+        image,
+        variant:  variantLabel,
+        color:    colorLabel,
+        storage:  storageLabel,
         qty,
       }];
     });

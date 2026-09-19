@@ -1,0 +1,290 @@
+/* ═══════════════════════════════════════════════════════════
+   LineupCard — Apple "Explore the line-up" Product Tile
+   Follows Modern CSS & SCSS Industry Standard Guidelines
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Block: Card Container ── */
+.lineup-card {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Box model */
+  width: 100%;
+  max-width: 16.25rem; /* ~260px on mobile */
+  margin-inline: auto;
+
+  /* Typography */
+  text-align: center;
+}
+
+/* ── Element: Media / Image Area ── */
+.lineup-card__media {
+  /* Layout */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Box model */
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  padding-block: var(--space-md);
+  padding-inline: var(--space-md);
+  overflow: hidden;
+
+  /* Appearance */
+  border-radius: var(--radius-card);
+
+  /* Animation */
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.lineup-card:hover .lineup-card__media {
+  transform: scale(1.015);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Element: Product Image ── */
+.lineup-card__img {
+  /* Box model */
+  max-width: 88%;
+  max-height: 88%;
+
+  /* Appearance */
+  object-fit: contain;
+
+  /* Interaction */
+  user-select: none;
+  -webkit-user-drag: none;
+
+  /* Animation */
+  transition: transform var(--transition-slow);
+}
+
+.lineup-card:hover .lineup-card__img {
+  transform: scale(1.03);
+}
+
+/* ── Element: Badge (e.g., "New") ── */
+.lineup-card__badge {
+  /* Layout */
+  position: absolute;
+  inset-block-start: var(--space-sm);
+  inset-inline-start: var(--space-sm);
+
+  /* Typography */
+  color: var(--apple-tag);
+  font-size: var(--font-body-xxs);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.01em;
+}
+
+/* ── Element: Color Swatches Group ── */
+.lineup-card__swatches {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+
+  /* Box model */
+  height: 1.75rem;
+  margin-block-start: var(--space-sm);
+}
+
+/* ── Element: Single Color Swatch ── */
+.lineup-card__swatch {
+  /* Box model */
+  width: var(--swatch-size);
+  height: var(--swatch-size);
+  padding: 0;
+  border: 0;
+
+  /* Appearance */
+  border-radius: var(--radius-circle);
+  box-shadow: var(--swatch-inset);
+
+  /* Interaction */
+  cursor: pointer;
+
+  /* Animation */
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.lineup-card__swatch:hover {
+  transform: scale(1.25);
+}
+
+.lineup-card__swatch:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ── Modifier: Active Swatch ── */
+.lineup-card__swatch--active {
+  transform: scale(1.1);
+  box-shadow: var(--swatch-ring);
+}
+
+/* ── Element: Product Name ── */
+.lineup-card__name {
+  /* Box model */
+  margin-block: var(--space-micro) 0.375rem;
+
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: var(--font-heading-sm);
+  font-weight: var(--weight-semibold);
+  line-height: var(--lh-normal);
+  letter-spacing: -0.015em;
+}
+
+/* ── Element: Tagline ── */
+.lineup-card__tagline {
+  /* Box model */
+  max-width: 16.25rem;
+  min-height: 2.25rem;
+  margin-block: 0 var(--space-md);
+  margin-inline: auto;
+
+  /* Typography */
+  color: var(--color-text-secondary);
+  font-size: var(--font-body-xs);
+  font-weight: var(--weight-regular);
+  line-height: var(--lh-loose);
+}
+
+/* ── Element: Pricing ── */
+.lineup-card__pricing {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-nano);
+
+  /* Box model */
+  margin-block-end: var(--space-md);
+}
+
+.lineup-card__price {
+  /* Typography */
+  color: var(--color-text-primary);
+  font-size: var(--font-body-sm);
+  font-weight: var(--weight-regular);
+}
+
+.lineup-card__emi {
+  /* Typography */
+  color: var(--color-text-tertiary);
+  font-size: var(--font-body-sm);
+}
+
+/* ── Element: CTAs Group ── */
+.lineup-card__ctas {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+/* ── Element: "Learn more" Pill CTA ── */
+.lineup-card__cta-learn {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+
+  /* Box model */
+  padding-block: 0.5625rem;
+  padding-inline: 1.25rem;
+
+  /* Appearance */
+  background-color: var(--apple-blue);
+  border-radius: var(--radius-pill);
+
+  /* Typography */
+  color: var(--color-fill);
+  font-size: var(--font-body-sm);
+  font-weight: var(--weight-regular);
+  letter-spacing: -0.01em;
+  text-decoration: none;
+
+  /* Animation */
+  transition: background-color var(--transition-fast);
+}
+
+.lineup-card__cta-learn:hover {
+  background-color: var(--apple-blue-hover);
+}
+
+.lineup-card__cta-learn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ── Element: "Buy >" Text Link CTA ── */
+.lineup-card__cta-buy {
+  /* Typography */
+  color: var(--apple-blue);
+  font-size: var(--font-body-sm);
+  font-weight: var(--weight-regular);
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.lineup-card__cta-buy:hover {
+  text-decoration: underline;
+}
+
+.lineup-card__cta-buy:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Mobile-First Responsive Breakpoints (min-width)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Tablet (min-width: 48rem / 768px) */
+@media (min-width: 48rem) {
+  .lineup-card {
+    max-width: 17.5rem; /* ~280px */
+  }
+
+  .lineup-card__name {
+    font-size: var(--font-heading-md);
+  }
+
+  .lineup-card__tagline {
+    font-size: var(--font-body-sm);
+    min-height: 2.5rem;
+  }
+
+  .lineup-card__cta-learn {
+    font-size: var(--font-body-md);
+    padding-block: 0.6875rem;
+    padding-inline: var(--space-md);
+  }
+
+  .lineup-card__cta-buy {
+    font-size: var(--font-body-md);
+  }
+}
+
+/* Desktop (min-width: 64rem / 1024px) */
+@media (min-width: 64rem) {
+  .lineup-card {
+    max-width: 20rem; /* ~320px */
+  }
+
+  .lineup-card__name {
+    font-size: var(--font-heading-lg);
+  }
+
+  .lineup-card__cta-learn,
+  .lineup-card__cta-buy {
+    font-size: var(--font-body-lg);
+  }
+}

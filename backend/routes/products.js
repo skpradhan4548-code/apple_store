@@ -1,8 +1,12 @@
 const router = require('express').Router();
 const Product = require('../models/Product');
 
-const sendProducts = async (res, filter) => {
-  const products = await Product.find(filter).sort({ name: 1 });
+const escapeRegex = (text) => text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+
+const sendProducts = async (res, filter, limit = 0) => {
+  let query = Product.find(filter).sort({ name: 1 });
+  if (limit > 0) query = query.limit(limit);
+  const products = await query;
   res.json({ products });
 };
 
@@ -15,7 +19,22 @@ router.get('/', async (req, res) => {
       filter.category = req.query.category.trim().toLowerCase();
     }
 
-    await sendProducts(res, filter);
+    if (req.query.search) {
+      const term = req.query.search.trim();
+      if (term) {
+        const safeRegex = new RegExp(escapeRegex(term), 'i');
+        filter.$or = [
+          { name: safeRegex },
+          { tagline: safeRegex },
+          { description: safeRegex },
+          { category: safeRegex },
+          { 'specs.value': safeRegex },
+        ];
+      }
+    }
+
+    const limit = parseInt(req.query.limit, 10) || 0;
+    await sendProducts(res, filter, limit);
   } catch (err) {
     console.error('Get products error:', err);
     res.status(500).json({ message: 'Unable to load products.' });

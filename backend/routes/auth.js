@@ -5,6 +5,8 @@ const User   = require('../models/User');
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/;
+
 /* ── REGISTER  POST /api/auth/register ── */
 router.post('/register', async (req, res) => {
   try {
@@ -13,10 +15,17 @@ router.post('/register', async (req, res) => {
     if (!name || !email || !password)
       return res.status(400).json({ message: 'All fields are required.' });
 
-    if (await User.findOne({ email }))
+    const cleanEmail = email.trim().toLowerCase();
+    if (!EMAIL_REGEX.test(cleanEmail))
+      return res.status(400).json({ message: 'Please provide a valid email address.' });
+
+    if (typeof password !== 'string' || password.length < 6)
+      return res.status(400).json({ message: 'Password must be at least 6 characters long.' });
+
+    if (await User.findOne({ email: cleanEmail }))
       return res.status(400).json({ message: 'Email already in use.' });
 
-    const user  = await User.create({ name, email, password });
+    const user  = await User.create({ name: name.trim(), email: cleanEmail, password });
     const token = signToken(user._id);
 
     res.status(201).json({
@@ -24,6 +33,10 @@ router.post('/register', async (req, res) => {
       user: { id: user._id, name: user.name, email: user.email },
     });
   } catch (err) {
+    if (err.name === 'ValidationError') {
+      const msg = Object.values(err.errors).map(e => e.message).join(', ');
+      return res.status(400).json({ message: msg });
+    }
     console.error('Register error:', err);
     res.status(500).json({ message: 'Server error.' });
   }
